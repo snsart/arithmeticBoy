@@ -151,6 +151,11 @@ class Main extends eui.UILayer {
         direControler.y=480;
         this.addChild(direControler);
 
+        direControler.addEventListener("egret.TouchEvent.TOUCH_TAP",this.direcOnTouch,this);
+    }
+
+    private direcOnTouch(e:egret.TouchEvent):void{
+        
     }
 
 }
