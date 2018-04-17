@@ -142,7 +142,15 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected startCreateScene(): void {
-       
+        var background:backgroundUI=new backgroundUI();
+        this.addChild(background);
+        /*var bg:egret.Bitmap=new egret.Bitmap(RES.getRes("background1"));
+		this.addChild(bg);*/
+        var direControler:DirecControlerUI=new DirecControlerUI();
+        direControler.x=70;
+        direControler.y=480;
+        this.addChild(direControler);
+
     }
 
 }

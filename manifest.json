@@ -10,6 +10,8 @@
 	],
 	"game": [
 		"bin-debug/AssetAdapter.js",
+		"bin-debug/backgroundUI.js",
+		"bin-debug/DirecControlerUI.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/ThemeAdapter.js"
