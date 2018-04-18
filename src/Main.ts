@@ -137,24 +137,43 @@ class Main extends eui.UILayer {
         }
     }
     private textfield: egret.TextField;
+    private background:BackgroundUI;
+     private direControler:DirecControlerUI;
     /**
      * 创建场景界面
      * Create scene interface
      */
+   
     protected startCreateScene(): void {
-        var background:backgroundUI=new backgroundUI();
-        this.addChild(background);
+        this.background=new BackgroundUI();
+        this.addChild(this.background);
         /*var bg:egret.Bitmap=new egret.Bitmap(RES.getRes("background1"));
 		this.addChild(bg);*/
-        var direControler:DirecControlerUI=new DirecControlerUI();
-        direControler.x=70;
-        direControler.y=480;
-        this.addChild(direControler);
-
-        direControler.addEventListener("egret.TouchEvent.TOUCH_TAP",this.direcOnTouch,this);
+        this.direControler=new DirecControlerUI();
+        this.direControler.x=70;
+        this.direControler.y=480;
+        this.addChild(this.direControler);
+        this.direControler.touchChildren=true;
+        this.direControler.touchEnabled=true;
+        this.direControler.addEventListener(egret.TouchEvent.TOUCH_TAP,this.direcOnTouch,this);
+       
     }
 
+  
     private direcOnTouch(e:egret.TouchEvent):void{
+       
+        let currentBtn=e.target;
+        switch(currentBtn){
+            case this.direControler.leftBtn:
+                this.background.scroll("left")
+                break;
+            case this.direControler.rightBtn:
+                 this.background.scroll("right")
+                break;
+            case this.direControler.upBtn:
+                this.background.stopScroll();
+                break;
+        }
         
     }
 

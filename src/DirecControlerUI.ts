@@ -12,11 +12,11 @@ class DirecControlerUI extends egret.Sprite{
 	}
 
 	get rightBtn():egret.Sprite{
-		return this._leftBtn;
+		return this._rightBtn;
 	}
 
 	get upBtn():egret.Sprite{
-		return this._leftBtn;
+		return this._upBtn;
 	}
 
 	private createView():void{
@@ -34,17 +34,21 @@ class DirecControlerUI extends egret.Sprite{
 		this._leftBtn.anchorOffsetX=this.leftBtn.width/2;
 		this._leftBtn.anchorOffsetY=this.leftBtn.height/2;
 		this._leftBtn.scaleX*=-1;
+		this._leftBtn.touchEnabled=true;
 
 		this._rightBtn.x=160;
 		this._rightBtn.y=0;
 		this._rightBtn.anchorOffsetX=this.rightBtn.width/2;
 		this._rightBtn.anchorOffsetY=this.rightBtn.height/2;
+		this._rightBtn.touchEnabled=true;
 
 		this._upBtn.x=780;
 		this._upBtn.y=0;
 		this._upBtn.anchorOffsetX=this.upBtn.width/2;
 		this._upBtn.anchorOffsetY=this.upBtn.height/2;
 		this._upBtn.rotation=270;
+		this._upBtn.touchEnabled=true;
+
 		this.addChild(this._leftBtn);
 		this.addChild(this._rightBtn);
 		this.addChild(this._upBtn);

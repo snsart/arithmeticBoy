@@ -143,19 +143,32 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
     Main.prototype.startCreateScene = function () {
-        var background = new backgroundUI();
-        this.addChild(background);
+        this.background = new BackgroundUI();
+        this.addChild(this.background);
         /*var bg:egret.Bitmap=new egret.Bitmap(RES.getRes("background1"));
         this.addChild(bg);*/
-        var direControler = new DirecControlerUI();
-        direControler.x = 70;
-        direControler.y = 480;
-        this.addChild(direControler);
+        this.direControler = new DirecControlerUI();
+        this.direControler.x = 70;
+        this.direControler.y = 480;
+        this.addChild(this.direControler);
+        this.direControler.touchChildren = true;
+        this.direControler.touchEnabled = true;
+        this.direControler.addEventListener(egret.TouchEvent.TOUCH_TAP, this.direcOnTouch, this);
+    };
+    Main.prototype.direcOnTouch = function (e) {
+        var currentBtn = e.target;
+        switch (currentBtn) {
+            case this.direControler.leftBtn:
+                this.background.scroll("left");
+                break;
+            case this.direControler.rightBtn:
+                this.background.scroll("right");
+                break;
+            case this.direControler.upBtn:
+                this.background.stopScroll();
+                break;
+        }
     };
     return Main;
 }(eui.UILayer));

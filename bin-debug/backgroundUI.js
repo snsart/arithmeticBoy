@@ -11,18 +11,48 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var backgroundUI = (function (_super) {
-    __extends(backgroundUI, _super);
-    function backgroundUI() {
+var BackgroundUI = (function (_super) {
+    __extends(BackgroundUI, _super);
+    function BackgroundUI() {
         var _this = _super.call(this) || this;
+        _this._moveDir = "none";
         _this.createImage();
         return _this;
     }
-    backgroundUI.prototype.createImage = function () {
+    Object.defineProperty(BackgroundUI.prototype, "moveDir", {
+        get: function () {
+            return this._moveDir;
+        },
+        set: function (value) {
+            this._moveDir = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BackgroundUI.prototype.createImage = function () {
         var bg = new egret.Bitmap(RES.getRes("background1"));
         this.addChild(bg);
     };
-    return backgroundUI;
+    BackgroundUI.prototype.scroll = function (dir) {
+        this.moveDir = dir;
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onScroll, this);
+    };
+    BackgroundUI.prototype.stopScroll = function () {
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onScroll, this);
+    };
+    BackgroundUI.prototype.onScroll = function (e) {
+        if (this._moveDir == "left") {
+            if (this.x < 0) {
+                this.x += 5;
+            }
+        }
+        if (this._moveDir == "right") {
+            if (this.x > -1920) {
+                this.x -= 5;
+            }
+        }
+    };
+    return BackgroundUI;
 }(egret.Sprite));
-__reflect(backgroundUI.prototype, "backgroundUI");
-//# sourceMappingURL=backgroundUI.js.map
+__reflect(BackgroundUI.prototype, "BackgroundUI");
+//# sourceMappingURL=BackgroundUI.js.map

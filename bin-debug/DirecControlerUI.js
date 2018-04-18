@@ -27,14 +27,14 @@ var DirecControlerUI = (function (_super) {
     });
     Object.defineProperty(DirecControlerUI.prototype, "rightBtn", {
         get: function () {
-            return this._leftBtn;
+            return this._rightBtn;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(DirecControlerUI.prototype, "upBtn", {
         get: function () {
-            return this._leftBtn;
+            return this._upBtn;
         },
         enumerable: true,
         configurable: true
@@ -54,15 +54,18 @@ var DirecControlerUI = (function (_super) {
         this._leftBtn.anchorOffsetX = this.leftBtn.width / 2;
         this._leftBtn.anchorOffsetY = this.leftBtn.height / 2;
         this._leftBtn.scaleX *= -1;
+        this._leftBtn.touchEnabled = true;
         this._rightBtn.x = 160;
         this._rightBtn.y = 0;
         this._rightBtn.anchorOffsetX = this.rightBtn.width / 2;
         this._rightBtn.anchorOffsetY = this.rightBtn.height / 2;
+        this._rightBtn.touchEnabled = true;
         this._upBtn.x = 780;
         this._upBtn.y = 0;
         this._upBtn.anchorOffsetX = this.upBtn.width / 2;
         this._upBtn.anchorOffsetY = this.upBtn.height / 2;
         this._upBtn.rotation = 270;
+        this._upBtn.touchEnabled = true;
         this.addChild(this._leftBtn);
         this.addChild(this._rightBtn);
         this.addChild(this._upBtn);
