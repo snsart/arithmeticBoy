@@ -143,11 +143,15 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
+    /**
+     * 创建场景界面
+     * Create scene interface
+     */
     Main.prototype.startCreateScene = function () {
         this.background = new BackgroundUI();
         this.addChild(this.background);
-        /*var bg:egret.Bitmap=new egret.Bitmap(RES.getRes("background1"));
-        this.addChild(bg);*/
+        this.wall = new Wall();
+        this.addChild(this.wall);
         this.direControler = new DirecControlerUI();
         this.direControler.x = 70;
         this.direControler.y = 480;

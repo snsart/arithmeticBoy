@@ -138,7 +138,8 @@ class Main extends eui.UILayer {
     }
     private textfield: egret.TextField;
     private background:BackgroundUI;
-     private direControler:DirecControlerUI;
+    private direControler:DirecControlerUI;
+    private wall:Wall;
     /**
      * 创建场景界面
      * Create scene interface
@@ -147,8 +148,10 @@ class Main extends eui.UILayer {
     protected startCreateScene(): void {
         this.background=new BackgroundUI();
         this.addChild(this.background);
-        /*var bg:egret.Bitmap=new egret.Bitmap(RES.getRes("background1"));
-		this.addChild(bg);*/
+     
+        this.wall=new Wall();
+        this.addChild(this.wall);
+
         this.direControler=new DirecControlerUI();
         this.direControler.x=70;
         this.direControler.y=480;
