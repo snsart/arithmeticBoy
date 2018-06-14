@@ -168,10 +168,10 @@ class Main extends eui.UILayer {
         let currentBtn=e.target;
         switch(currentBtn){
             case this.direControler.leftBtn:
-                this.background.scroll("left")
+                this.background.scroll("left");
                 break;
             case this.direControler.rightBtn:
-                 this.background.scroll("right")
+                 this.background.scroll("right");
                 break;
             case this.direControler.upBtn:
                 this.background.stopScroll();
