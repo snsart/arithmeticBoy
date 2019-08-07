@@ -36,7 +36,7 @@ class Main extends egret.DisplayObjectContainer {
 
 
         var bodyDef:Box2D.Dynamics.b2BodyDef = new Box2D.Dynamics.b2BodyDef();//创建物体定义
-        bodyDef.position = new Box2D.Common.Math.b2Vec2(posX/this.p2m,posY/this.p2m);//设计物体位置
+        bodyDef.position = new Box2D.Common.Math.b2Vec2(posX/this.p2m,posY/this.p2m);//设计物体位置,将像素坐标转换为世界坐标
         bodyDef.type = Box2D.Dynamics.b2Body.b2_dynamicBody;
         if(isStatic) {
             bodyDef.type = Box2D.Dynamics.b2Body.b2_staticBody;

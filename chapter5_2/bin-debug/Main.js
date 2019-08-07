@@ -33,8 +33,18 @@ var Main = (function (_super) {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) { _this.mouse.x = e.stageX; _this.mouse.y = e.stageY; }, this);
     };
     Main.prototype.setup = function () {
+        this.createWorld();
         this.boxes = [];
         this.mouse = new Vector2D(0, 0);
+        this.boundary = new Boundary(300, 500, 200, 20, this.world);
+        this.addChild(this.boundary);
+        this.boundary.display();
+        var bd2 = new Boundary(200, 350, 20, 300, this.world);
+        this.addChild(bd2);
+        bd2.display();
+        var bd3 = new Boundary(400, 350, 20, 300, this.world);
+        this.addChild(bd3);
+        bd3.display();
     };
     Main.prototype.createWorld = function () {
         var gravity = new Box2D.Common.Math.b2Vec2(0, 10);
@@ -42,7 +52,7 @@ var Main = (function (_super) {
     };
     Main.prototype.loop = function (e) {
         if (this.mousedown) {
-            var b = new Box(this.mouse.x, this.mouse.y);
+            var b = new Box(this.mouse.x, this.mouse.y, this.world);
             this.boxes.push(b);
             this.addChild(b);
         }
@@ -50,8 +60,8 @@ var Main = (function (_super) {
             var box = _a[_i];
             box.display();
         }
-        /* this.world.Step(1/60,10,10);
-         this.world.DrawDebugData();*/
+        this.world.Step(1 / 60, 10, 10);
+        /*this.world.DrawDebugData();*/
     };
     return Main;
 }(egret.DisplayObjectContainer));

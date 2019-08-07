@@ -12,6 +12,8 @@ class Main extends egret.DisplayObjectContainer {
     private mousedown:boolean;
     private mouse:Vector2D;
 
+    private boundary:Boundary;
+
     private onAddToStage(event:egret.Event) {
         let bg:egret.Shape=new egret.Shape();
         bg.graphics.beginFill(0xffffff);
@@ -19,6 +21,7 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(bg);       
 
         this.setup();
+
         this.addEventListener(egret.Event.ENTER_FRAME,this.loop,this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
             this.mousedown=true;
@@ -30,8 +33,21 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private setup(){
+        this.createWorld();
         this.boxes=[];
         this.mouse=new Vector2D(0,0);
+
+        this.boundary=new Boundary(300,500,200,20,this.world);
+        this.addChild(this.boundary);
+        this.boundary.display();
+
+        let bd2=new Boundary(200,350,20,300,this.world);
+        this.addChild(bd2);
+        bd2.display();
+
+        let bd3=new Boundary(400,350,20,300,this.world);
+        this.addChild(bd3);
+        bd3.display();
     }
      
     private createWorld(){
@@ -42,7 +58,7 @@ class Main extends egret.DisplayObjectContainer {
     private loop(e:egret.Event){
         
         if(this.mousedown){
-            let b:Box=new Box(this.mouse.x,this.mouse.y);
+            let b:Box=new Box(this.mouse.x,this.mouse.y,this.world);
             this.boxes.push(b);
             this.addChild(b);
         }
@@ -51,7 +67,7 @@ class Main extends egret.DisplayObjectContainer {
             box.display();
         }
 
-       /* this.world.Step(1/60,10,10);
-        this.world.DrawDebugData();*/
+        this.world.Step(1/60,10,10);
+        /*this.world.DrawDebugData();*/
     }
 }

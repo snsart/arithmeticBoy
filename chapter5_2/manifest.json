@@ -9,6 +9,7 @@
 		"libs/modules/Box2dweb/Box2dweb.js"
 	],
 	"game": [
+		"bin-debug/Boundary.js",
 		"bin-debug/Box.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
