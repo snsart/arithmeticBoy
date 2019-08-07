@@ -1,0 +1,7 @@
+{
+	"name": "Box2dweb",
+	"compilerVersion": "5.2.4",
+	"files": [
+		"Box2dweb.js","egret.d.ts","Box2dweb.d.ts"
+	]
+}
