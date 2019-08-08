@@ -22,7 +22,10 @@ var Boundary = (function (_super) {
         bd.position.Set(_this.px / _this.p2m, _this.py / _this.p2m);
         bd.type = Box2D.Dynamics.b2Body.b2_staticBody;
         var b = _this.world.CreateBody(bd);
-        var ps = Box2D.Collision.Shapes.b2PolygonShape.AsBox(_this.w / _this.p2m / 2, _this.h / _this.p2m / 2);
+        //let ps:Box2D.Collision.Shapes.b2PolygonShape=Box2D.Collision.Shapes.b2PolygonShape.AsBox(this.w/this.p2m/2,this.h/this.p2m/2);
+        var start = new Box2D.Common.Math.b2Vec2(500 / _this.p2m, 300 / _this.p2m);
+        var end = new Box2D.Common.Math.b2Vec2(400 / _this.p2m, 300 / _this.p2m);
+        var ps = new Box2D.Collision.Shapes.b2EdgeShape(start, end);
         var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
         fixtureDef.shape = ps;
         b.CreateFixture(fixtureDef);
