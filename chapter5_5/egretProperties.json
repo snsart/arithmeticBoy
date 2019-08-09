@@ -1,0 +1,29 @@
+{
+  "engineVersion": "5.2.4",
+  "compilerVersion": "5.2.4",
+  "template": {},
+  "target": {
+    "current": "web"
+  },
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "promise"
+    },
+    {
+      "name":"Box2dweb",
+      "path":"../Box2dweb"
+    }
+  ]
+}
