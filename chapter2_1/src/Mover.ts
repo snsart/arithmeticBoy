@@ -42,6 +42,5 @@ class Mover extends egret.Sprite {
 		}else if(this.location.y<0){
 			this.location.y=height;
 		}
-
 	}
 }
