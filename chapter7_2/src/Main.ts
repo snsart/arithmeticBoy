@@ -102,13 +102,13 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private setup(){
-        this.ca=new CA(100);
+        this.ca=new CA(100,76);
         this.addChild(this.ca);
     }
 
     private onEnterFrame(){
         this.ca.generate();
-        this.ca.display2();
+        this.ca.display();
         requestAnimationFrame(this.onEnterFrame.bind(this));
     }
 

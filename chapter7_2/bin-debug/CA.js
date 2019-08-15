@@ -10,71 +10,104 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var CA = (function (_super) {
     __extends(CA, _super);
-    function CA(width) {
+    function CA(cols, rows) {
         var _this = _super.call(this) || this;
         _this.generation = 0;
-        _this.cells = [];
-        _this.ruleset = [0, 1, 0, 1, 1, 0, 1, 0];
-        for (var i = 0; i < width; i++) {
-            _this.cells.push(0);
-        }
-        _this.cells[_this.cells.length / 2] = 1;
-        _this.rects = [];
-        for (var i = 0; i < width; i++) {
-            var rect = new egret.Shape();
-            _this.rects.push(rect);
-            _this.addChild(rect);
-        }
+        _this.cols = cols;
+        _this.rows = rows;
+        _this.setup();
+        _this.drawBoard();
         return _this;
     }
-    CA.prototype.generate = function () {
-        var nextgen = [0];
-        for (var i = 1; i < this.cells.length - 1; i++) {
-            var left = this.cells[i - 1];
-            var me = this.cells[i];
-            var right = this.cells[i + 1];
-            nextgen.push(this.rules(left, me, right));
+    CA.prototype.setup = function () {
+        this.rects = [];
+        this.boards = [];
+        this.states1 = [];
+        this.states2 = [];
+        for (var i = 0; i < this.rows; i++) {
+            var arr = [];
+            for (var j = 0; j < this.cols; j++) {
+                arr.push(Math.round(Math.random()));
+            }
+            this.states1.push(arr.concat());
+            this.states2.push(arr.concat());
+            this.boards.push(arr.concat());
         }
-        nextgen.push(0);
-        this.cells = nextgen;
+    };
+    CA.prototype.drawBoard = function () {
+        var w = 10;
+        for (var i = 0; i < this.rows; i++) {
+            var arr = [];
+            for (var j = 0; j < this.cols; j++) {
+                var rect = new egret.Shape();
+                var g = rect.graphics;
+                if (this.boards[i][j] == 0) {
+                    g.beginFill(0x000000);
+                }
+                else {
+                    g.beginFill(0xffffff);
+                }
+                g.drawRect((j + 1) * w, (i + 1) * w, w, w);
+                arr.push(rect);
+                this.addChild(rect);
+            }
+            this.rects.push(arr);
+        }
+    };
+    CA.prototype.generate = function () {
+        var currentState = this.generation % 2 == 0 ? this.states1 : this.states2;
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.cols; j++) {
+                currentState[i][j] = this.rules(i, j, this.getNeighNum(i, j));
+            }
+        }
+        this.boards = currentState;
         this.generation++;
     };
-    CA.prototype.rules = function (a, b, c) {
-        var s = "" + a + b + c;
-        var index = parseInt(s, 2);
-        console.log(index);
-        return this.ruleset[index];
+    CA.prototype.getNeighNum = function (i, j) {
+        var neighNum = 0;
+        var startRow = i == 0 ? 0 : i - 1;
+        var endRow = i == this.rows - 1 ? this.rows - 1 : i + 1;
+        var startCol = j == 0 ? 0 : j - 1;
+        var endCol = j == this.cols - 1 ? this.cols - 1 : j + 1;
+        for (var row = startRow; row <= endRow; row++) {
+            for (var col = startCol; col <= endCol; col++) {
+                neighNum += this.boards[row][col];
+            }
+        }
+        neighNum -= this.boards[i][j];
+        return neighNum;
+    };
+    CA.prototype.rules = function (i, j, neighNum) {
+        var currentState = this.boards[i][j];
+        if (currentState == 1 && neighNum < 0) {
+            return 0;
+        }
+        else if (currentState == 1 && neighNum > 3) {
+            return 0;
+        }
+        else if (currentState == 0 && neighNum == 3) {
+            return 1;
+        }
+        else {
+            return currentState;
+        }
     };
     CA.prototype.display = function () {
         var w = 10;
-        for (var i = 0; i < this.cells.length; i++) {
-            var rect = new egret.Shape();
-            var g = rect.graphics;
-            if (this.cells[i] == 0) {
-                g.beginFill(0xffffff);
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.cols; j++) {
+                var rect = this.rects[i][j];
+                var g = rect.graphics;
+                g.clear();
+                if (this.boards[i][j] == 0) {
+                    g.beginFill(0x000000);
+                }
+                else {
+                    g.beginFill(0xffffff);
+                }
+                g.drawRect((j + 1) * w, (i + 1) * w, w, w);
             }
-            else {
-                g.beginFill(0x000000);
-            }
-            g.drawRect(i * w, this.generation * w, w, w);
-            this.addChild(rect);
-        }
-    };
-    CA.prototype.display2 = function () {
-        var w = 10;
-        for (var i = 0; i < this.rects.length; i++) {
-            var rect = this.rects[i];
-            var g = rect.graphics;
-            g.clear();
-            g.beginFill(0x000000);
-            var height = 1;
-            if (this.cells[i] == 0) {
-                height = 1;
-            }
-            else {
-                height = 500;
-            }
-            g.drawRect(i * w, 0, w, height);
         }
     };
     return CA;

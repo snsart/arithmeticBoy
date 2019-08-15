@@ -1,76 +1,113 @@
 class CA extends egret.Sprite{
 
-	private cells;
-	private ruleset;
+	private boards:Array<Array<any>>;
 	private generation=0;
 	private rects;
+	private cols;
+	private rows;
 
-	public constructor(width) {
+	private states1;
+	private states2;
+
+	public constructor(cols,rows) {
 		super();
-		this.cells=[];
-		this.ruleset=[0,1,0,1,1,0,1,0];
-		for(let i=0;i<width;i++){
-			this.cells.push(0);
-		}
-		this.cells[this.cells.length/2]=1;
+		this.cols=cols;
+		this.rows=rows;
+		this.setup();
+		this.drawBoard();
+	}
 
+	public setup(){
 		this.rects=[];
-		for(let i=0;i<width;i++){
-			let rect=new egret.Shape();
-			this.rects.push(rect);
-			this.addChild(rect);
+		this.boards=[];
+		this.states1=[];
+		this.states2=[];
+
+		for(let i=0;i<this.rows;i++){
+			let arr=[];
+			for(let j=0;j<this.cols;j++){
+				arr.push(Math.round(Math.random()));
+			}
+			this.states1.push(arr.concat());
+			this.states2.push(arr.concat());
+			this.boards.push(arr.concat());
+		}
+	}
+
+	public drawBoard(){
+		let w=10;
+		for(let i=0;i<this.rows;i++){
+			let arr=[];
+			for(let j=0;j<this.cols;j++){
+				let rect=new egret.Shape();
+				let g=rect.graphics;
+				if(this.boards[i][j]==0){
+					g.beginFill(0x000000);
+				}else{
+					g.beginFill(0xffffff);
+				}
+				g.drawRect((j+1)*w,(i+1)*w,w,w);
+				arr.push(rect);
+				this.addChild(rect);
+			}
+			this.rects.push(arr);
 		}
 	}
 
 	public generate(){
-		let nextgen=[0];
-		for(let i=1;i<this.cells.length-1;i++){
-			let left=this.cells[i-1];
-			let me=this.cells[i];
-			let right=this.cells[i+1];
-			nextgen.push(this.rules(left,me,right));
+		let  currentState=this.generation%2==0?this.states1:this.states2;
+		for(let i=0;i<this.rows;i++){
+			for(let j=0;j<this.cols;j++){
+				currentState[i][j]=this.rules(i,j,this.getNeighNum(i,j));
+			}
 		}
-		nextgen.push(0);
-		this.cells=nextgen;
+		this.boards=currentState;
 		this.generation++;
 	}
 
-	public rules(a:number,b:number,c:number){
-		let s=""+a+b+c;
-		let index=parseInt(s,2);
-		console.log(index);
-		return this.ruleset[index];
+	public getNeighNum(i,j):number{
+		let neighNum=0;
+		let startRow=i==0?0:i-1;
+		let endRow=i==this.rows-1?this.rows-1:i+1;
+		let startCol=j==0?0:j-1;
+		let endCol=j==this.cols-1?this.cols-1:j+1;
+
+		for(let row=startRow;row<=endRow;row++){
+			for(let col=startCol;col<=endCol;col++){
+				neighNum+=this.boards[row][col];
+			}
+		}
+		neighNum-=this.boards[i][j];
+		return neighNum;
+	}
+
+	public rules(i,j,neighNum):number{
+		let currentState=this.boards[i][j];
+		if(currentState==1&&neighNum<0){
+			return 0;
+		}else if(currentState==1&&neighNum>3){
+			return 0;
+		}else if(currentState==0&&neighNum==3){
+			return 1;
+		}else{
+			return currentState;
+		}
 	}
 
 	public display(){
 		let w=10;
-		for(let i=0;i<this.cells.length;i++){
-			let rect=new egret.Shape();
-			let g=rect.graphics;
-			if(this.cells[i]==0){
-				g.beginFill(0xffffff);
-			}else{
-				g.beginFill(0x000000);
+		for(let i=0;i<this.rows;i++){
+			for(let j=0;j<this.cols;j++){
+				let rect=this.rects[i][j];
+				let g=rect.graphics;
+				g.clear();
+				if(this.boards[i][j]==0){
+					g.beginFill(0x000000);
+				}else{
+					g.beginFill(0xffffff);
+				}
+				g.drawRect((j+1)*w,(i+1)*w,w,w);
 			}
-			g.drawRect(i*w,this.generation*w,w,w);
-			this.addChild(rect);
-		}	
-	}
-
-	public display2(){
-		let w=10;
-		for(let i=0;i<this.rects.length;i++){
-			let rect=this.rects[i]
-			let g=rect.graphics;
-			g.clear();
-			g.beginFill(0x000000);
-			let height=1;
-			if(this.cells[i]==0){
-				height=1
-			}else{
-				height=500;
-			}
-			g.drawRect(i*w,0,w,height);
-		}	
+		}
 	}
 }

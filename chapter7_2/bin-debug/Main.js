@@ -157,12 +157,12 @@ var Main = (function (_super) {
         this.onEnterFrame();
     };
     Main.prototype.setup = function () {
-        this.ca = new CA(100);
+        this.ca = new CA(100, 76);
         this.addChild(this.ca);
     };
     Main.prototype.onEnterFrame = function () {
         this.ca.generate();
-        this.ca.display2();
+        this.ca.display();
         requestAnimationFrame(this.onEnterFrame.bind(this));
     };
     /**
