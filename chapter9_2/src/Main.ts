@@ -86,10 +86,13 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private textfield: egret.TextField;
-    private population:Array<any>;
-    private matingPool:Array<any>;
-    private totalPopulation:number;
-    private mutationRate:number;
+    
+    private population:Population;
+    private lifetime;
+    private lifeCounter;
+    private target:Vector2D;
+
+    private obstacles:Array<Obstacle>;
     /**
      * 创建游戏场景
      * Create a game scene
@@ -105,50 +108,51 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private setup(){
-        this.totalPopulation=100;
-        this.mutationRate=0.01;
-        this.population=[];
-        for(let i=0;i<this.totalPopulation;i++){
-            this.population.push(new DNA());
-        }
-        this.print();
+        this.lifetime=199;
+        this.lifeCounter=0;
+        let mutationRate=0.01;
+        this.target=new Vector2D(800,400);
+        this.drawTarget();
+        this.obstacles=[];
+
+        let obs=new Obstacle(200,150,20,400);
+        this.addChild(obs);
+        this.obstacles.push(obs);
+
+        let obs2=new Obstacle(450,0,20,300);
+        this.addChild(obs2);
+        this.obstacles.push(obs2);
+
+        let obs3=new Obstacle(450,468,20,300);
+        this.addChild(obs3);
+        this.obstacles.push(obs3);
+
+        this.population=new Population(mutationRate,300,this.obstacles,this.target);
+        this.addChild(this.population);
+    }
+
+    private drawTarget(){
+        let ball=new egret.Shape();
+        let g=ball.graphics;
+        g.beginFill(0xff00f0);
+        g.drawCircle(this.target.x,this.target.y,10);
+        this.addChild(ball);
     }
 
     private draw(){
-        let matingPool=[];
-        for(let i=0;i<this.totalPopulation;i++){
-            let n=this.population[i].fitness*100;
-            for(let j=0;j<n;j++){
-                matingPool.push(this.population[i]);
-            }
-        }
-
-        for(let i=0;i<this.population.length;i++){
-            let a=Math.floor(Math.random()*matingPool.length);
-            let b=Math.floor(Math.random()*matingPool.length);
-            let partnerA=matingPool[a];
-            let partnerB=matingPool[b];
-            let child=partnerA.crossover(partnerB);
-            child.mutate(this.mutationRate);
-            this.population[i]=child;
-        }
-
+       if(this.lifeCounter<this.lifetime){
+           this.population.live();
+           this.lifeCounter++;
+       }else{
+           this.lifeCounter=0;
+           this.population.fitness();
+           this.population.selection();
+           this.population.reproduction();
+       }
     }
 
-    private print(){
-        for(let i=0;i<this.population.length;i++){
-            let str=this.population[i].getPharse();
-            console.log(str);
-        }
-    }
-    private i=0;
     private onEnterFrame(){
-        this.i++;
         this.draw();
-        if(this.i%1000==0){
-            console.log("第"+this.i+"代--------------------------------------------------------------------------------")
-            this.print();
-        }
         requestAnimationFrame(this.onEnterFrame.bind(this));
     }
 

@@ -122,8 +122,10 @@ var Vector2D = (function () {
     };
     /*返回一个随机的二维向量*/
     Vector2D.random2D = function () {
-        var x = Math.random(), y = Math.random();
-        return new Vector2D(x, y);
+        var x = Math.random() - 0.5, y = Math.random() - 0.5;
+        var randomV = new Vector2D(x, y);
+        randomV.normalize();
+        return randomV;
     };
     /*-----------------------------------------------非静态方法-------------------------------------------------*/
     /*两个向量相加*/

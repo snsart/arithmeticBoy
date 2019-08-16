@@ -75,7 +75,6 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         var _this = _super.call(this) || this;
-        _this.i = 0;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
         return _this;
     }
@@ -158,45 +157,45 @@ var Main = (function (_super) {
         this.onEnterFrame();
     };
     Main.prototype.setup = function () {
-        this.totalPopulation = 100;
-        this.mutationRate = 0.01;
-        this.population = [];
-        for (var i = 0; i < this.totalPopulation; i++) {
-            this.population.push(new DNA());
-        }
-        this.print();
+        this.lifetime = 199;
+        this.lifeCounter = 0;
+        var mutationRate = 0.01;
+        this.target = new Vector2D(800, 400);
+        this.drawTarget();
+        this.obstacles = [];
+        var obs = new Obstacle(200, 150, 20, 400);
+        this.addChild(obs);
+        this.obstacles.push(obs);
+        var obs2 = new Obstacle(450, 0, 20, 300);
+        this.addChild(obs2);
+        this.obstacles.push(obs2);
+        var obs3 = new Obstacle(450, 468, 20, 300);
+        this.addChild(obs3);
+        this.obstacles.push(obs3);
+        this.population = new Population(mutationRate, 300, this.obstacles, this.target);
+        this.addChild(this.population);
+    };
+    Main.prototype.drawTarget = function () {
+        var ball = new egret.Shape();
+        var g = ball.graphics;
+        g.beginFill(0xff00f0);
+        g.drawCircle(this.target.x, this.target.y, 10);
+        this.addChild(ball);
     };
     Main.prototype.draw = function () {
-        var matingPool = [];
-        for (var i = 0; i < this.totalPopulation; i++) {
-            var n = this.population[i].fitness * 100;
-            for (var j = 0; j < n; j++) {
-                matingPool.push(this.population[i]);
-            }
+        if (this.lifeCounter < this.lifetime) {
+            this.population.live();
+            this.lifeCounter++;
         }
-        for (var i = 0; i < this.population.length; i++) {
-            var a = Math.floor(Math.random() * matingPool.length);
-            var b = Math.floor(Math.random() * matingPool.length);
-            var partnerA = matingPool[a];
-            var partnerB = matingPool[b];
-            var child = partnerA.crossover(partnerB);
-            child.mutate(this.mutationRate);
-            this.population[i] = child;
-        }
-    };
-    Main.prototype.print = function () {
-        for (var i = 0; i < this.population.length; i++) {
-            var str = this.population[i].getPharse();
-            console.log(str);
+        else {
+            this.lifeCounter = 0;
+            this.population.fitness();
+            this.population.selection();
+            this.population.reproduction();
         }
     };
     Main.prototype.onEnterFrame = function () {
-        this.i++;
         this.draw();
-        if (this.i % 1000 == 0) {
-            console.log("第" + this.i + "代--------------------------------------------------------------------------------");
-            this.print();
-        }
         requestAnimationFrame(this.onEnterFrame.bind(this));
     };
     /**

@@ -144,8 +144,10 @@ class Vector2D {
 
 	/*返回一个随机的二维向量*/
 	public static random2D():Vector2D{
-		let x=Math.random(),y=Math.random();
-		return new Vector2D(x,y);
+		let x=Math.random()-0.5,y=Math.random()-0.5;
+		let randomV=new Vector2D(x,y);
+		randomV.normalize();
+		return randomV;
 	}
 
 

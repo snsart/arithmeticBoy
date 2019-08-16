@@ -4,32 +4,27 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var DNA = (function () {
     function DNA() {
         this._genes = [];
-        for (var i = 0; i < 10; i++) {
-            var codeIndex = Math.floor(Math.random() * (128 - 32) + 32);
-            var c = String.fromCharCode(codeIndex);
-            this._genes.push(c);
+        this._maxforce = 0.6;
+        this._lifetime = 200;
+        for (var i = 0; i < this._lifetime; i++) {
+            var force = Vector2D.random2D();
+            force.mult(Math.random() * this._maxforce);
+            this._genes.push(force);
         }
     }
-    Object.defineProperty(DNA.prototype, "fitness", {
+    Object.defineProperty(DNA.prototype, "genes", {
         get: function () {
-            var target = "abcdefghij";
-            var score = 0;
-            for (var i = 0; i < this._genes.length; i++) {
-                if (this._genes[i] == target.charAt(i)) {
-                    score++;
-                }
-            }
-            this._fitness = score / target.length;
-            return this._fitness;
+            return this._genes;
         },
         enumerable: true,
         configurable: true
     });
     DNA.prototype.crossover = function (partner) {
         var child = new DNA();
-        var midpoint = Math.floor(Math.random() * 10);
+        //let midpoint=Math.floor(Math.random()*200);
         for (var i = 0; i < this._genes.length; i++) {
-            if (i > midpoint) {
+            var random = Math.random();
+            if (random > 0.5) {
                 child._genes[i] = this._genes[i];
             }
             else {
@@ -41,14 +36,11 @@ var DNA = (function () {
     DNA.prototype.mutate = function (mutationRate) {
         for (var i = 0; i < this._genes.length; i++) {
             if (Math.random() < mutationRate) {
-                var codeIndex = Math.floor(Math.random() * (128 - 32) + 32);
-                var c = String.fromCharCode(codeIndex);
-                this._genes[i] = c;
+                var force = Vector2D.random2D();
+                force.mult(Math.random() * this._maxforce);
+                this._genes[i] = force;
             }
         }
-    };
-    DNA.prototype.getPharse = function () {
-        return this._genes.join("");
     };
     return DNA;
 }());
