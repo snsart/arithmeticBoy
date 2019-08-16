@@ -29,8 +29,6 @@
 
 class Main extends egret.DisplayObjectContainer {
 
-
-
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
@@ -87,10 +85,12 @@ class Main extends egret.DisplayObjectContainer {
 
     private textfield: egret.TextField;
     private lines;
+
     /**
      * 创建游戏场景
      * Create a game scene
      */
+    
     private createGameScene() {
         let bg=new egret.Shape();
         bg.graphics.beginFill(0xffffff);

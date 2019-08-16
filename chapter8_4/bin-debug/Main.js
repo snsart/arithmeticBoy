@@ -159,8 +159,8 @@ var Main = (function (_super) {
     Main.prototype.setup = function () {
         var _this = this;
         this.ruleset = [];
-        this.ruleset.push(new Rule("A", "ABA"));
-        this.ruleset.push(new Rule("B", "-"));
+        this.ruleset.push(new Rule("A", "BA"));
+        this.ruleset.push(new Rule("B", "B"));
         this.lsys = new LSystem("A", this.ruleset);
         this.turtle = new Turtle(this, this.lsys.getSentence(), 10);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {

@@ -106,8 +106,8 @@ class Main extends egret.DisplayObjectContainer {
     private setup(){
         
         this.ruleset=[];
-        this.ruleset.push(new Rule("A","ABA"));
-        this.ruleset.push(new Rule("B","B-"));
+        this.ruleset.push(new Rule("A","BA"));
+        this.ruleset.push(new Rule("B","B"));
         this.lsys=new LSystem("A",this.ruleset);
 
         this.turtle=new Turtle(this,this.lsys.getSentence(),10);
