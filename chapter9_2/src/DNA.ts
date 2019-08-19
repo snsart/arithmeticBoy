@@ -1,7 +1,7 @@
 class DNA {
 	private _genes=[];
 	private _fitness:number;
-	private _maxforce=0.6;
+	private _maxforce=0.5;
 	private _lifetime=200;
 
 	public constructor() {

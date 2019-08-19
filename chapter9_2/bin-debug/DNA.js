@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var DNA = (function () {
     function DNA() {
         this._genes = [];
-        this._maxforce = 0.6;
+        this._maxforce = 0.5;
         this._lifetime = 200;
         for (var i = 0; i < this._lifetime; i++) {
             var force = Vector2D.random2D();

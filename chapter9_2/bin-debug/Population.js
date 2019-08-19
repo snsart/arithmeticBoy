@@ -45,13 +45,10 @@ var Population = (function (_super) {
         }
         for (var i = 0; i < this.totalPopulation; i++) {
             var n = this.population[i].getFitness() / totalFitness * 300;
-            console.log(n);
             if (n < 1) {
-                console.log("zero+++++");
                 continue;
             }
             for (var j = 0; j < n; j++) {
-                console.log(n);
                 this.matingPool.push(this.population[i]);
             }
         }

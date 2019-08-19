@@ -45,13 +45,10 @@ class Population extends egret.Sprite{
 
         for(let i=0;i<this.totalPopulation;i++){
 			let n=this.population[i].getFitness()/totalFitness*300;
-			console.log(n);
 			if(n<1){
-				console.log("zero+++++");
 				continue;
 			}
             for(let j=0;j<n;j++){
-				console.log(n);
                 this.matingPool.push(this.population[i]);
             }
         }

@@ -111,19 +111,19 @@ class Main extends egret.DisplayObjectContainer {
         this.lifetime=199;
         this.lifeCounter=0;
         let mutationRate=0.01;
-        this.target=new Vector2D(800,400);
+        this.target=new Vector2D(700,500);
         this.drawTarget();
         this.obstacles=[];
 
-        let obs=new Obstacle(200,150,20,400);
+        let obs=new Obstacle(200,300,20,400);
         this.addChild(obs);
         this.obstacles.push(obs);
 
-        let obs2=new Obstacle(450,0,20,300);
+        let obs2=new Obstacle(600,0,20,300);
         this.addChild(obs2);
         this.obstacles.push(obs2);
 
-        let obs3=new Obstacle(450,468,20,300);
+        let obs3=new Obstacle(600,468,20,300);
         this.addChild(obs3);
         this.obstacles.push(obs3);
 
