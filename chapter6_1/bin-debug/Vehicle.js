@@ -17,7 +17,7 @@ var Vehicle = (function (_super) {
         _this.velocity = new Vector2D(0, 0);
         _this.acceleration = new Vector2D(0, 0);
         _this.maxspeed = 10;
-        _this.maxforce = 0.5;
+        _this.maxforce = 0.2;
         _this.shape = new egret.Shape();
         var g = _this.shape.graphics;
         g.clear();
@@ -31,7 +31,10 @@ var Vehicle = (function (_super) {
         _this.shape.y = _this.location.y;
         return _this;
     }
-    /*寻找*/
+    /*寻找
+    *转向力=所需速度-当前速度
+    *设计不同的行为就是通过设计不同的所需速度来实现的;
+    */
     Vehicle.prototype.seek = function (target) {
         var desired = Vector2D.sub(target, this.location);
         desired.normalize();

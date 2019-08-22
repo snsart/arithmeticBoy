@@ -8,16 +8,16 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
-var Pair = (function (_super) {
-    __extends(Pair, _super);
-    function Pair(x, y, world) {
+var Windmill = (function (_super) {
+    __extends(Windmill, _super);
+    function Windmill(x, y, world) {
         var _this = _super.call(this) || this;
         _this.p2m = 30; //像素世界和物理世界的转换率，1像素世界=30物理世界
         _this.world = world;
         _this.setup(x, y);
         return _this;
     }
-    Pair.prototype.setup = function (x, y) {
+    Windmill.prototype.setup = function (x, y) {
         var jointLength = 100;
         this.box1 = new Box(x, y, this.world, 0);
         this.box2 = new Box(x, y + 120, this.world);
@@ -33,7 +33,7 @@ var Pair = (function (_super) {
             rjd.upperAngle=Math.PI;*/
         var dj = this.world.CreateJoint(rjd);
     };
-    Pair.prototype.display = function () {
+    Windmill.prototype.display = function () {
         var pos1 = this.box1.body.GetPosition();
         var pos2 = this.box2.body.GetPosition();
         var g = this.graphics;
@@ -44,7 +44,7 @@ var Pair = (function (_super) {
         this.box1.display();
         this.box2.display();
     };
-    return Pair;
+    return Windmill;
 }(egret.Sprite));
-__reflect(Pair.prototype, "Pair");
-//# sourceMappingURL=Pair.js.map
+__reflect(Windmill.prototype, "Windmill");
+//# sourceMappingURL=Windmill.js.map

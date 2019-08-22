@@ -13,8 +13,8 @@
 		"bin-debug/Box.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
-		"bin-debug/Pair.js",
 		"bin-debug/Platform.js",
-		"bin-debug/Vector2D.js"
+		"bin-debug/Vector2D.js",
+		"bin-debug/Windmill.js"
 	]
 }

@@ -52,8 +52,8 @@ var Main = (function (_super) {
         }
         for (var _i = 0, _a = this.boxes; _i < _a.length; _i++) {
             var box = _a[_i];
-            var force = new Box2D.Common.Math.b2Vec2(1, 0);
-            box.applyForce(force);
+            var wind = new Box2D.Common.Math.b2Vec2(1, 0);
+            box.applyForce(wind);
             box.display();
         }
         this.world.Step(1 / 60, 10, 10);

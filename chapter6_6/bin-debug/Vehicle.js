@@ -67,7 +67,7 @@ var Vehicle = (function (_super) {
         }
         return new Vector2D(0, 0);
     };
-    /*结合多个行为*/
+    /*结合多个行为:寻找和分离*/
     Vehicle.prototype.applyBehaviors = function (vehicles, seekTarget) {
         var separate = this.separate(vehicles);
         var seek = this.seek(seekTarget);

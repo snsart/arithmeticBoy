@@ -33,26 +33,26 @@ var Main = (function (_super) {
     };
     Main.prototype.setup = function () {
         this.mouse = new Vector2D(0, 0);
-        this.path = new Path();
-        this.path.addPoint(100, 300);
-        this.path.addPoint(300, 400);
-        this.path.addPoint(600, 200);
-        this.path.addPoint(900, 300);
-        this.path.addPoint(700, 500);
-        this.path.addPoint(400, 600);
-        this.path.display();
-        this.addChild(this.path);
-        this.vehicle = new Vehicle(1, 0, 200);
-        this.addChild(this.vehicle);
+        /* this.path=new Path();
+         this.path.addPoint(100,300);
+         this.path.addPoint(300,400);
+         this.path.addPoint(600,200);
+         this.path.addPoint(900,300);
+         this.path.addPoint(700,500);
+         this.path.addPoint(400,600);
+         this.path.display();
+         this.addChild(this.path);
+         this.vehicle=new Vehicle(1,0,200);
+         this.addChild(this.vehicle);*/
         this.vehicleSystem = new VehicleSystem();
         this.addChild(this.vehicleSystem);
     };
     Main.prototype.loop = function (e) {
-        this.vehicle.follow(this.path);
-        this.vehicle.update();
-        this.vehicle.display();
+        /* this.vehicle.follow(this.path);
+         this.vehicle.update();
+         this.vehicle.display();*/
         this.vehicleSystem.draw();
-        this.vehicle.checkEdge(this.stage.stageWidth, this.stage.stageHeight);
+        /* this.vehicle.checkEdge(this.stage.stageWidth,this.stage.stageHeight);*/
     };
     return Main;
 }(egret.DisplayObjectContainer));

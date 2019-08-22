@@ -46,7 +46,7 @@ var Main = (function (_super) {
     };
     Main.prototype.loop = function (e) {
         if (this.mousedown) {
-            var b = new Pair(this.mouse.x, this.mouse.y, this.world);
+            var b = new Windmill(this.mouse.x, this.mouse.y, this.world);
             this.boxes.push(b);
             this.addChild(b);
         }

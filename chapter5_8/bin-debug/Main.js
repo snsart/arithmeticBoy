@@ -47,7 +47,6 @@ var Main = (function (_super) {
             var b1 = f1.GetBody();
             var b2 = f2.GetBody();
             var p1 = b2.GetUserData();
-            console.log(p1);
         };
     };
     Main.prototype.createWorld = function () {

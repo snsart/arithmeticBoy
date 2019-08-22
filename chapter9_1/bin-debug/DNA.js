@@ -12,7 +12,7 @@ var DNA = (function () {
     }
     Object.defineProperty(DNA.prototype, "fitness", {
         get: function () {
-            var target = "abcdefghij";
+            var target = "helloworld";
             var score = 0;
             for (var i = 0; i < this._genes.length; i++) {
                 if (this._genes[i] == target.charAt(i)) {

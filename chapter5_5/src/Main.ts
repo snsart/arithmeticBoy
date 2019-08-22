@@ -8,7 +8,7 @@ class Main extends egret.DisplayObjectContainer {
     private debug:Box2D.Dynamics.b2DebugDraw;
     private p2m:number = 30;
 
-    private boxes:Pair[];
+    private boxes:Windmill[];
     private mousedown:boolean;
     private mouse:Vector2D;
 
@@ -50,7 +50,7 @@ class Main extends egret.DisplayObjectContainer {
     private loop(e:egret.Event){
         
         if(this.mousedown){
-            let b:Pair=new Pair(this.mouse.x,this.mouse.y,this.world);
+            let b:Windmill=new Windmill(this.mouse.x,this.mouse.y,this.world);
             this.boxes.push(b);
             this.addChild(b);
         }

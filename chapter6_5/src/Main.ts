@@ -31,7 +31,7 @@ class Main extends egret.DisplayObjectContainer {
 
     private setup(){
         this.mouse=new Vector2D(0,0);
-        this.path=new Path();
+       /* this.path=new Path();
         this.path.addPoint(100,300);
         this.path.addPoint(300,400);
         this.path.addPoint(600,200);
@@ -41,18 +41,18 @@ class Main extends egret.DisplayObjectContainer {
         this.path.display();
         this.addChild(this.path);
         this.vehicle=new Vehicle(1,0,200);
-        this.addChild(this.vehicle);
+        this.addChild(this.vehicle);*/
 
         this.vehicleSystem=new VehicleSystem();
         this.addChild(this.vehicleSystem);
     }
 
     private loop(e:egret.Event){
-        this.vehicle.follow(this.path);
+       /* this.vehicle.follow(this.path);
         this.vehicle.update();
-        this.vehicle.display();
+        this.vehicle.display();*/
         this.vehicleSystem.draw();
-        this.vehicle.checkEdge(this.stage.stageWidth,this.stage.stageHeight);
+       /* this.vehicle.checkEdge(this.stage.stageWidth,this.stage.stageHeight);*/
     }
 }
 

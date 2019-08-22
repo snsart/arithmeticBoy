@@ -30,18 +30,26 @@ var Main = (function (_super) {
         this.createBox(sWidth, sHeight / 2, 10, sHeight, true);
         this.addEventListener(egret.Event.ENTER_FRAME, this.loop, this);
     };
+    /*三要素：物体，形状和夹具
+       *1. 创建物体定义
+       *2. 创建物体
+       *3. 创建夹具
+       *4. 创建形状
+       *5. 将形状放在夹具中
+       *6. 讲夹具赋给物体
+       */
     Main.prototype.createBox = function (posX, posY, w, h, isStatic) {
         if (isStatic === void 0) { isStatic = false; }
-        var bodyDef = new Box2D.Dynamics.b2BodyDef();
-        bodyDef.position = new Box2D.Common.Math.b2Vec2(posX / this.p2m, posY / this.p2m);
+        var bodyDef = new Box2D.Dynamics.b2BodyDef(); //创建物体定义
+        bodyDef.position = new Box2D.Common.Math.b2Vec2(posX / this.p2m, posY / this.p2m); //设计物体位置,将像素坐标转换为世界坐标
         bodyDef.type = Box2D.Dynamics.b2Body.b2_dynamicBody;
         if (isStatic) {
             bodyDef.type = Box2D.Dynamics.b2Body.b2_staticBody;
         }
-        var body = this.world.CreateBody(bodyDef);
+        var body = this.world.CreateBody(bodyDef); //创建物体
         var poly;
         poly = Box2D.Collision.Shapes.b2PolygonShape.AsBox(w / this.p2m, h / this.p2m);
-        var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
+        var fixtureDef = new Box2D.Dynamics.b2FixtureDef(); //创建夹具:通过夹具设置物体的形状，摩擦系数，复原性等属性;
         fixtureDef.density = 3;
         fixtureDef.restitution = 0.2;
         fixtureDef.shape = poly;
