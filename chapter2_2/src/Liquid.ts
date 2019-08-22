@@ -37,7 +37,7 @@ class Liquid extends egret.Sprite {
 	public display(){
 		let g=this.graphics;
 		g.clear();
-		g.beginFill(0x000088);
+		g.beginFill(0x10A8FF);
 		g.drawRect(this._x,this._y,this._w,this._h);
 	}
 

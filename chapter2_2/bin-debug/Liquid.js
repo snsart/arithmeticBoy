@@ -57,7 +57,7 @@ var Liquid = (function (_super) {
     Liquid.prototype.display = function () {
         var g = this.graphics;
         g.clear();
-        g.beginFill(0x000088);
+        g.beginFill(0x10A8FF);
         g.drawRect(this._x, this._y, this._w, this._h);
     };
     return Liquid;
