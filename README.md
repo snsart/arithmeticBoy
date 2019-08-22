@@ -1,5 +1,5 @@
 ﻿# stu-TheNatureOfCode
-阅读《TheNatureOfCode》时的练习题：
+阅读《TheNatureOfCode》时，做的练习题：
 
 ## 第二章
 
