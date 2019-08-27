@@ -46,9 +46,9 @@ class Vehicle extends egret.Sprite {
 		}
 	}
 
-	public run(vehicles:Array<Vehicle>){
+	public run(){
+		this.geneCounter++;
 		if(!this.stoped){
-			this.geneCounter++;
 			this.applyForce(this.dna.genes[this.geneCounter]);
 			this.update();
 			this.testObstacle();
